@@ -1,25 +1,40 @@
+import {
+  ApolloClient,
+  ApolloProvider,
+  HttpLink,
+  InMemoryCache
+} from '@apollo/client'
 import React from 'react'
 import './App.css'
-import logo from './logo.svg'
+import { useGetTestQuery } from './generated/graphql'
+
+const createApolloClient = () => {
+  return new ApolloClient({
+    link: new HttpLink({
+      uri: process.env.HASURA_ENDPOINT,
+      headers: {
+        'x-hasura-admin-secret': process.env.X_HASURA_ADMIN_SECRET
+      }
+    }),
+    cache: new InMemoryCache()
+  })
+}
+
 function App() {
-	return (
-		<div className="App">
-			<header className="App-header">
-				<img alt="logo" className="App-logo" src={logo} />
-				<p>
-					Edit <code>src/App.tsx</code> and save to reload.
-				</p>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					rel="noopener noreferrer"
-					target="_blank"
-				>
-					Learn React
-				</a>
-			</header>
-		</div>
-	)
+  const client = createApolloClient()
+
+  return (
+    <ApolloProvider client={client}>
+      <div className='App' />
+      <Test />
+    </ApolloProvider>
+  )
+}
+
+const Test = () => {
+  const { data } = useGetTestQuery()
+
+  return <div>{data?.test.map((i) => i.text)}</div>
 }
 
 export default App
