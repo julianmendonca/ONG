@@ -11,9 +11,6 @@ import './App.css'
 const createApolloClient = () => {
   return new ApolloClient({
     link: new HttpLink({
-
-
-
       uri: process.env.HASURA_ENDPOINT,
 
       headers: {
@@ -36,6 +33,8 @@ const theme = createTheme({
 
       contrastText: '#fff'
     },
+
+	
 
     secondary: {
       light: '#cfcfcf',
