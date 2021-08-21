@@ -1,4 +1,4 @@
-mutation InsertTest {
+mutation InsertTestt {
   insert_test_one(object: { text: "hola" }) {
     id
     text
