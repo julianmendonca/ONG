@@ -1,0 +1,6 @@
+mutation InsertTest {
+  insert_test_one(object: { text: "hola" }) {
+    id
+    text
+  }
+}

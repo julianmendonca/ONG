@@ -1,19 +1,15 @@
 overwrite: true
-schema: 
- - "https://ong.hasura.app/v1/graphql":
+schema:
+  -${HASURA_ENDPOINT}:
     headers:
-       "x-hasura-admin-secret": "T2BbUlmzBciOrgxkXnc8eQkVdsOJyZRgIgp5aJI3Se4bXIZnaYduBRvatOwtFPrm"
-documents: "src/**/*.gql"
+      x-hasura-admin-secret: ${X_HASURA_ADMIN_SECRET}
+documents: 'src/**/*.gql'
 generates:
-  src/generated/graphql.ts:
+  src/generated/graphql.tsx:
     plugins:
-      - "typescript"
-      - "typescript-operations"
-      - "typescript-react-apollo"
-      - "typescript-document-nodes"
-      - "fragment-matcher"
-      - "urql-introspection"
-  ./graphql.schema.json:
-    plugins:
-      - "introspection"
-      - typescript
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-apollo'
+      - 'typescript-graphql-files-modules'
+      - 'typescript-document-nodes'
+      - 'fragment-matcher'
